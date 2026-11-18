@@ -22,7 +22,14 @@ import SocialIcons from './SocialIcons.astro';
 
       <div class="hero-actions">
         <a class="btn btn-primary" href="/work">See the work</a>
-        <a class="btn btn-ghost" href={site.resume} download={`Mohammed-Nizar-Miri-Resume.pdf`}>
+        <a
+          class="btn btn-ghost"
+          href={site.resume}
+          target="_blank"
+          rel="noopener noreferrer"
+          download="Nizar_Miri_Resume.pdf"
+          data-resume-link
+        >
           See my resume
         </a>
       </div>
@@ -291,3 +298,22 @@ import SocialIcons from './SocialIcons.astro';
     }
   }
 </style>
+
+<script>
+  const resumeLink = document.querySelector('[data-resume-link]');
+  resumeLink?.addEventListener('click', (event) => {
+    const link = event.currentTarget as HTMLAnchorElement;
+    const href = link.getAttribute('href');
+    if (!href) return;
+
+    event.preventDefault();
+    window.open(href, '_blank', 'noopener,noreferrer');
+
+    const download = document.createElement('a');
+    download.href = href;
+    download.download = link.getAttribute('download') || 'Nizar_Miri_Resume.pdf';
+    document.body.appendChild(download);
+    download.click();
+    download.remove();
+  });
+</script>
