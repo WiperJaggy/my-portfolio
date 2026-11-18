@@ -1,0 +1,179 @@
+---
+/**
+ * Delivery Prism — custom CSS 3D polyhedron.
+ * Six neon faces orbit like a signal crystal: speed, facets of skill, and fast delivery.
+ */
+---
+
+<div class="prism-wrap" aria-hidden="true">
+  <div class="prism-glow"></div>
+  <div class="prism-orbit"></div>
+  <div class="prism-scene">
+    <div class="prism">
+      <span class="face face-front"></span>
+      <span class="face face-back"></span>
+      <span class="face face-right"></span>
+      <span class="face face-left"></span>
+      <span class="face face-top"></span>
+      <span class="face face-bottom"></span>
+      <span class="core"></span>
+    </div>
+  </div>
+  <div class="prism-rings">
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<style>
+  .prism-wrap {
+    position: relative;
+    width: min(100%, 280px);
+    height: 280px;
+    margin-inline: auto;
+    perspective: 900px;
+  }
+
+  .prism-glow {
+    position: absolute;
+    inset: 18%;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--neon-glow), transparent 70%);
+    filter: blur(18px);
+    animation: pulse-glow 3.5s ease-in-out infinite;
+  }
+
+  .prism-orbit {
+    position: absolute;
+    inset: 8%;
+    border: 1px dashed var(--neon-dim);
+    border-radius: 50%;
+    animation: orbit-spin 18s linear infinite;
+  }
+
+  @keyframes orbit-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .prism-scene {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    transform-style: preserve-3d;
+    animation: float-y 5.5s ease-in-out infinite;
+  }
+
+  .prism {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    transform-style: preserve-3d;
+    animation: spin-y 12s linear infinite;
+  }
+
+  .face {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      145deg,
+      rgba(124, 255, 178, 0.18),
+      rgba(124, 255, 178, 0.02) 55%,
+      transparent
+    );
+    border: 1px solid var(--border-strong);
+    box-shadow:
+      inset 0 0 24px rgba(124, 255, 178, 0.12),
+      0 0 18px rgba(124, 255, 178, 0.08);
+    backface-visibility: visible;
+  }
+
+  .face-front {
+    transform: translateZ(55px);
+  }
+  .face-back {
+    transform: rotateY(180deg) translateZ(55px);
+  }
+  .face-right {
+    transform: rotateY(90deg) translateZ(55px);
+  }
+  .face-left {
+    transform: rotateY(-90deg) translateZ(55px);
+  }
+  .face-top {
+    transform: rotateX(90deg) translateZ(55px);
+  }
+  .face-bottom {
+    transform: rotateX(-90deg) translateZ(55px);
+  }
+
+  .core {
+    position: absolute;
+    inset: 38%;
+    border-radius: 50%;
+    background: var(--neon);
+    box-shadow: 0 0 28px var(--neon-glow), 0 0 60px var(--neon-dim);
+    transform: translateZ(0);
+  }
+
+  .prism-rings {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .prism-rings span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 78%;
+    height: 42%;
+    border: 1px solid var(--neon-dim);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotateX(72deg);
+    box-shadow: 0 0 16px var(--neon-faint);
+  }
+
+  .prism-rings span:nth-child(2) {
+    width: 92%;
+    height: 52%;
+    border-color: rgba(124, 255, 178, 0.2);
+    transform: translate(-50%, -50%) rotateX(72deg) rotateZ(35deg);
+  }
+
+  @media (max-width: 720px) {
+    .prism-wrap {
+      width: 220px;
+      height: 220px;
+    }
+
+    .prism {
+      width: 88px;
+      height: 88px;
+    }
+
+    .face-front {
+      transform: translateZ(44px);
+    }
+    .face-back {
+      transform: rotateY(180deg) translateZ(44px);
+    }
+    .face-right {
+      transform: rotateY(90deg) translateZ(44px);
+    }
+    .face-left {
+      transform: rotateY(-90deg) translateZ(44px);
+    }
+    .face-top {
+      transform: rotateX(90deg) translateZ(44px);
+    }
+    .face-bottom {
+      transform: rotateX(-90deg) translateZ(44px);
+    }
+  }
+</style>

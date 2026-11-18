@@ -1,0 +1,62 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="proof" aria-label="Key proof points">
+  <div class="container">
+    <ul class="proof-grid reveal">
+      {
+        site.proof.map((item) => (
+          <li class="neon-frame proof-item">
+            <span class="proof-value">{item.value}</span>
+            <span class="proof-label">{item.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .proof {
+    padding: 0 0 clamp(2rem, 4vw, 3rem);
+  }
+
+  .proof-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+
+  .proof-item {
+    padding: 1.1rem 1rem;
+  }
+
+  .proof-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--neon);
+    text-shadow: 0 0 24px var(--neon-dim);
+    margin-bottom: 0.3rem;
+  }
+
+  .proof-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 860px) {
+    .proof-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

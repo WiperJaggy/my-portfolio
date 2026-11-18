@@ -1,0 +1,156 @@
+---
+import { site } from '../data/site';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${site.name} — ${site.role}`,
+  description = site.tagline,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL('/images/profile.png', site.url).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.fullName,
+  alternateName: site.name,
+  jobTitle: site.role,
+  url: site.url,
+  email: site.email,
+  description: site.about.lead,
+  knowsAbout: [...site.skills.map((s) => s.name), ...site.toolkit.map((t) => t.name)],
+  sameAs: Object.values(site.socials),
+  worksFor: site.companies.map((name) => ({ '@type': 'Organization', name })),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#050807" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="front-end developer, Astro.js, JavaScript, WordPress SEO, CI/CD, React, portfolio"
+    />
+    <meta name="author" content={site.name} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot />
+    <script>
+      const reveals = document.querySelectorAll('.reveal');
+
+      function showReveal(el: Element) {
+        el.classList.add('is-visible');
+      }
+
+      if ('IntersectionObserver' in window && reveals.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                showReveal(entry.target);
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: '0px 0px -5% 0px' }
+        );
+        reveals.forEach((el) => io.observe(el));
+
+        // Failsafe so sections never stay invisible if IO stalls
+        window.setTimeout(() => reveals.forEach(showReveal), 2500);
+      } else {
+        reveals.forEach(showReveal);
+      }
+
+      const header = document.querySelector('[data-header]');
+      const onScroll = () => {
+        header?.classList.toggle('is-scrolled', window.scrollY > 24);
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      const toggle = document.querySelector('[data-nav-toggle]');
+      const nav = document.querySelector('[data-nav]');
+      toggle?.addEventListener('click', () => {
+        const open = nav?.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.classList.toggle('nav-open', !!open);
+      });
+
+      nav?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('is-open');
+          toggle?.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('nav-open');
+        });
+      });
+
+      const form = document.querySelector('[data-contact-form]');
+      if (form instanceof HTMLFormElement) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const status = document.querySelector('[data-form-status]');
+          const data = new FormData(form);
+          const name = String(data.get('name') || '').trim();
+          const email = String(data.get('email') || '').trim();
+          const message = String(data.get('message') || '').trim();
+          const to = form.getAttribute('data-email') || 'nizarmiri66@gmail.com';
+
+          if (!name || !email || !message) {
+            if (status) {
+              status.textContent = 'Please fill in all fields.';
+              status.className = 'form-status is-error';
+            }
+            return;
+          }
+
+          const subject = encodeURIComponent(`Portfolio inquiry from ${name}`);
+          const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`);
+          window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+          if (status) {
+            status.textContent = 'Opening your email client…';
+            status.className = 'form-status is-ok';
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

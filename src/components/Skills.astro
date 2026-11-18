@@ -1,0 +1,248 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="section skills" id="skills" aria-labelledby="skills-title">
+  <div class="container">
+    <div class="skills-head reveal">
+      <p class="section-label">Skills</p>
+      <h2 class="section-title" id="skills-title">Tools that turn ideas into shipped UI.</h2>
+      <p class="section-lead">
+        Interactive skill map highlighting front-end depth, SEO care, and delivery pipelines.
+      </p>
+    </div>
+
+    <div class="skills-layout">
+      <ul class="skill-list reveal reveal-delay-1">
+        {
+          site.skills.map((skill) => (
+            <li class="skill-item neon-frame" style={`--level: ${skill.level}%`}>
+              <div class="skill-meta">
+                <span class="skill-name">{skill.name}</span>
+                <span class="skill-cat">{skill.category}</span>
+              </div>
+              <div
+                class="skill-track"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow={skill.level}
+                aria-label={`${skill.name} proficiency`}
+              >
+                <span class="skill-fill"></span>
+              </div>
+              <span class="skill-level">{skill.level}%</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <aside class="skill-orbit neon-frame reveal reveal-delay-2" aria-label="Skill constellation">
+        <p class="orbit-title">Fast delivery stack</p>
+        <div class="orbit">
+          <span class="orbit-core">JS</span>
+          <span class="sat s1">Astro</span>
+          <span class="sat s2">SEO</span>
+          <span class="sat s3">CI/CD</span>
+          <span class="sat s4">React</span>
+          <span class="sat s5">CSS</span>
+        </div>
+        <p class="orbit-note">
+          Strong JavaScript hands-on practice with Astro-first delivery and React foundations.
+        </p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-head {
+    margin-bottom: clamp(2rem, 4vw, 2.75rem);
+  }
+
+  .skills-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .skill-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .skill-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'meta level'
+      'track track';
+    gap: 0.45rem 0.75rem;
+    padding: 0.95rem 1rem;
+  }
+
+  .skill-meta {
+    grid-area: meta;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .skill-name {
+    font-family: var(--font-display);
+    font-weight: 650;
+    color: var(--text);
+  }
+
+  .skill-cat {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .skill-level {
+    grid-area: level;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--neon);
+  }
+
+  .skill-track {
+    grid-area: track;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(124, 255, 178, 0.08);
+    overflow: hidden;
+    border: 1px solid var(--neon-faint);
+  }
+
+  .skill-fill {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, rgba(124, 255, 178, 0.45), var(--neon));
+    box-shadow: 0 0 12px var(--neon-glow);
+    transition: width 1.1s var(--ease-out);
+  }
+
+  .reveal.is-visible .skill-fill {
+    width: var(--level);
+  }
+
+  .skill-orbit {
+    padding: 1.35rem 1.2rem 1.4rem;
+    position: sticky;
+    top: calc(var(--header-h) + 1rem);
+  }
+
+  .orbit-title {
+    margin: 0 0 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--neon);
+  }
+
+  .orbit {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 280px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    border: 1px dashed var(--neon-dim);
+    display: grid;
+    place-items: center;
+  }
+
+  .orbit::before {
+    content: '';
+    position: absolute;
+    inset: 18%;
+    border-radius: 50%;
+    border: 1px solid rgba(124, 255, 178, 0.15);
+  }
+
+  .orbit-core {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: #03140c;
+    background: var(--neon);
+    box-shadow: 0 0 28px var(--neon-glow);
+    z-index: 2;
+  }
+
+  .sat {
+    position: absolute;
+    padding: 0.35rem 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--neon-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-panel-strong);
+    box-shadow: 0 0 16px var(--neon-faint);
+    animation: float-y 4.5s ease-in-out infinite;
+  }
+
+  .s1 {
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .s2 {
+    top: 32%;
+    right: 2%;
+    animation-delay: 0.4s;
+  }
+  .s3 {
+    bottom: 18%;
+    right: 14%;
+    animation-delay: 0.8s;
+  }
+  .s4 {
+    bottom: 14%;
+    left: 10%;
+    animation-delay: 1.1s;
+  }
+  .s5 {
+    top: 30%;
+    left: 2%;
+    animation-delay: 0.2s;
+  }
+
+  .orbit-note {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .skills-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .skill-orbit {
+      position: static;
+      max-width: 420px;
+      margin-inline: auto;
+      width: 100%;
+    }
+  }
+</style>
+

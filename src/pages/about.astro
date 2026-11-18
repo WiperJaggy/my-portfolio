@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import SkillOrbit from '../components/SkillOrbit.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title={`About — ${site.fullName}`}
+  description={site.about.lead}
+>
+  <Header />
+  <main id="main">
+    <PageHero
+      label="About"
+      title={`${site.fullName}`}
+      lead={site.about.lead}
+      animated
+    />
+
+    <section class="section about-page">
+      <div class="container about-layout">
+        <div class="about-visual reveal">
+          <div class="portrait neon-frame">
+            <img
+              src="/images/profile.png"
+              alt={`${site.fullName}, ${site.role}`}
+              width="420"
+              height="520"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+          <ul class="company-row" aria-label="Companies">
+            {site.companies.map((company) => <li>{company}</li>)}
+          </ul>
+        </div>
+
+        <div class="about-copy">
+          {
+            site.about.paragraphs.map((paragraph, i) => (
+              <p class={`reveal reveal-delay-${Math.min(i + 1, 3)}`}>{paragraph}</p>
+            ))
+          }
+
+          <div class="focus-grid reveal reveal-delay-2">
+            <article class="neon-frame focus-card">
+              <h2>Front-end &amp; WordPress</h2>
+              <p>Responsive UI, maintainable themes, and interfaces that feel sharp on every screen.</p>
+            </article>
+            <article class="neon-frame focus-card">
+              <h2>SEO from reports</h2>
+              <p>Ranking upgrades guided by audits — technical health, structure, and measurable gains.</p>
+            </article>
+            <article class="neon-frame focus-card">
+              <h2>On-time delivery</h2>
+              <p>CI/CD on GitHub &amp; GitLab, plus Sydney, Jira, and Slack for archived, managed work.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section toolkit-section" aria-labelledby="toolkit-title">
+      <div class="container toolkit-layout">
+        <div class="toolkit-copy reveal">
+          <p class="section-label">Toolkit</p>
+          <h2 class="section-title" id="toolkit-title">Languages, frameworks, and delivery tools in motion.</h2>
+          <p class="section-lead">
+            An interactive map of the stacks behind my work — from foundational languages to Astro, WordPress, and team workflows.
+          </p>
+          <a class="btn btn-primary" href="/work">See the work</a>
+        </div>
+        <div class="toolkit-visual reveal reveal-delay-2">
+          <SkillOrbit />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .about-layout {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+  }
+
+  .portrait {
+    overflow: hidden;
+    padding: 0.65rem;
+  }
+
+  .portrait img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    filter: contrast(1.04) saturate(0.95);
+  }
+
+  .company-row {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .company-row li {
+    padding: 0.4rem 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: var(--neon);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--neon-faint);
+  }
+
+  .about-copy p {
+    margin: 0 0 1.1rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  .focus-grid {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .focus-card {
+    padding: 1rem 1.05rem;
+  }
+
+  .focus-card h2 {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text);
+  }
+
+  .focus-card p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .toolkit-layout {
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+  }
+
+  .toolkit-copy .btn {
+    margin-top: 1.35rem;
+  }
+
+  @media (max-width: 900px) {
+    .about-layout,
+    .toolkit-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .about-visual {
+      max-width: 360px;
+      margin-inline: auto;
+      width: 100%;
+    }
+  }
+</style>

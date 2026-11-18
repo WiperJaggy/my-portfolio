@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title={`Contact — ${site.name}`}
+  description="Contact Mohammed Nizar Miri to build or improve your website with front-end, WordPress, Astro, and SEO."
+>
+  <Header />
+  <main id="main">
+    <PageHero
+      label="Contact"
+      title={`Let’s build <em>something</em> together`}
+      lead="Hiring for front-end, WordPress, Astro, or SEO? Send a brief — or a URL for a free speed/SEO check."
+      animated
+    />
+
+    <section class="section contact-page">
+      <div class="container contact-layout">
+        <aside class="contact-aside reveal">
+          <p class="aside-kicker">Ready when you are</p>
+          <h2 class="aside-title">Contact me to help you build your website.</h2>
+          <p class="aside-copy">
+            Whether you need a new Astro site, WordPress development, or ranking improvements from audit reports — let’s ship it clean and on time.
+          </p>
+          <a
+            class="btn btn-ghost audit-btn"
+            href={`mailto:${site.email}?subject=${encodeURIComponent('Free speed / SEO check')}&body=${encodeURIComponent('Hi Nizar,\n\nPlease audit this URL:\n\nThanks.')}`}
+          >
+            Request free speed check
+          </a>
+
+          <ul class="contact-meta">
+            <li>
+              <span>Email</span>
+              <a href={`mailto:${site.email}`}>{site.email}</a>
+            </li>
+            <li>
+              <span>Location</span>
+              <strong>{site.location}</strong>
+            </li>
+            <li>
+              <span>Social</span>
+              <div class="socials">
+                <a href={site.socials.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href={site.socials.gitlab} target="_blank" rel="noopener noreferrer">GitLab</a>
+                <a href={site.socials.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              </div>
+            </li>
+          </ul>
+        </aside>
+
+        <div class="form-wrap reveal reveal-delay-1">
+          <ContactForm />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+  }
+
+  .aside-kicker {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--neon);
+  }
+
+  .aside-title {
+    margin: 0 0 0.85rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  .aside-copy {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .audit-btn {
+    margin-top: 1.25rem;
+  }
+
+  .contact-meta {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .contact-meta li {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .contact-meta span {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .contact-meta strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+  }
+
+  @media (max-width: 860px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

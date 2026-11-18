@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import WorkGrid from '../components/WorkGrid.astro';
+import { site } from '../data/site';
+
+const wpCount = site.work.filter((w) => w.stack === 'wordpress').length;
+const astroCount = site.work.filter((w) => w.stack === 'astro').length;
+---
+
+<BaseLayout
+  title={`Work — ${site.name}`}
+  description={`Selected WordPress and Astro projects by ${site.fullName}, including client sites across marketing, healthcare, legal, and more.`}
+>
+  <Header />
+  <main id="main">
+    <PageHero
+      label="Work"
+      title="Sites I’ve built, improved, and shipped."
+      lead={`${wpCount} WordPress builds and ${astroCount} Astro projects — live links, previews, and a short brief for each.`}
+      animated
+    />
+
+    <section class="section work-page">
+      <div class="container">
+        <WorkGrid />
+        <div class="work-cta reveal">
+          <p>Want something in this quality for your brand?</p>
+          <a class="btn btn-primary" href="/contact">Start a project</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .work-page {
+    padding-top: clamp(2rem, 4vw, 2.75rem);
+  }
+
+  .work-cta {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding: 1.5rem 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-panel);
+    box-shadow: var(--shadow-neon);
+  }
+
+  .work-cta p {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+    letter-spacing: -0.02em;
+  }
+</style>

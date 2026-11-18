@@ -1,0 +1,103 @@
+---
+import { site } from '../data/site';
+---
+
+<form
+  class="contact-form neon-frame"
+  data-contact-form
+  data-email={site.email}
+  novalidate
+>
+  <div class="field">
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" autocomplete="name" required placeholder="Your name" />
+  </div>
+  <div class="field">
+    <label for="email">Email</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      autocomplete="email"
+      required
+      placeholder="you@company.com"
+    />
+  </div>
+  <div class="field">
+    <label for="message">Message</label>
+    <textarea
+      id="message"
+      name="message"
+      rows="5"
+      required
+      placeholder="Project goals, timeline, links…"></textarea>
+  </div>
+  <button class="btn btn-primary" type="submit">Send message</button>
+  <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+</form>
+
+<style>
+  .contact-form {
+    padding: 1.4rem 1.25rem 1.35rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .field {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .field label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--neon);
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    padding: 0.8rem 0.9rem;
+    color: var(--text);
+    background: rgba(3, 6, 5, 0.65);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--text-dim);
+  }
+
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--border-strong);
+    box-shadow: 0 0 0 3px var(--neon-faint), 0 0 20px var(--neon-dim);
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  .form-status {
+    margin: 0;
+    min-height: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  :global(.form-status.is-ok) {
+    color: var(--neon);
+  }
+
+  :global(.form-status.is-error) {
+    color: var(--danger);
+  }
+</style>

@@ -1,0 +1,83 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="section process" id="process" aria-labelledby="process-title">
+  <div class="container">
+    <div class="process-head reveal">
+      <p class="section-label">How I deliver</p>
+      <h2 class="section-title" id="process-title">A clear path from brief to launch.</h2>
+      <p class="section-lead">
+        Structured delivery so stakeholders always know what’s next — and ships stay on time.
+      </p>
+    </div>
+
+    <ol class="process-list">
+      {
+        site.process.map((item, i) => (
+          <li class={`neon-frame process-step reveal reveal-delay-${Math.min(i + 1, 3)}`}>
+            <span class="step-num">{item.step}</span>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process-head {
+    margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .process-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    counter-reset: none;
+  }
+
+  .process-step {
+    padding: 1.15rem 1rem 1.2rem;
+    display: grid;
+    gap: 0.7rem;
+    min-height: 100%;
+  }
+
+  .step-num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--neon);
+  }
+
+  .process-step h3 {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+  }
+
+  .process-step p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  @media (max-width: 1000px) {
+    .process-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .process-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

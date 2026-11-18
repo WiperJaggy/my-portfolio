@@ -1,0 +1,77 @@
+---
+import { site } from '../data/site';
+import SocialIcons from './SocialIcons.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="footer-mark" aria-hidden="true"></span>
+      <div>
+        <strong>{site.fullName}</strong>
+        <p>{site.role} · Astro.js · WordPress · SEO</p>
+      </div>
+    </div>
+
+    <SocialIcons />
+
+    <p class="footer-copy">© {year} {site.name}. Built with Astro &amp; plain CSS.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 1.75rem 0 2rem;
+    background: rgba(3, 6, 5, 0.7);
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .footer-mark {
+    width: 1.1rem;
+    height: 1.1rem;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: var(--neon);
+    box-shadow: 0 0 14px var(--neon-glow);
+  }
+
+  .footer-brand strong {
+    display: block;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  .footer-brand p {
+    margin: 0.15rem 0 0;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .footer-copy {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 720px) {
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

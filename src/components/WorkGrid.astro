@@ -1,0 +1,265 @@
+---
+import { site } from '../data/site';
+
+const wordpress = site.work.filter((w) => w.stack === 'wordpress');
+const astro = site.work.filter((w) => w.stack === 'astro');
+---
+
+<section class="work-board" aria-label="Project portfolio">
+  <div class="work-filters" role="tablist" aria-label="Filter by stack">
+    <button class="filter is-active" type="button" data-filter="all" role="tab" aria-selected="true">
+      All ({site.work.length})
+    </button>
+    <button class="filter" type="button" data-filter="wordpress" role="tab" aria-selected="false">
+      WordPress ({wordpress.length})
+    </button>
+    <button class="filter" type="button" data-filter="astro" role="tab" aria-selected="false">
+      Astro ({astro.length})
+    </button>
+  </div>
+
+  <ul class="work-grid" data-work-grid>
+    {
+      site.work.map((item, i) => (
+        <li class={`work-card neon-frame reveal reveal-delay-${(i % 3) + 1}`} data-stack={item.stack}>
+          <a class="work-media" href={item.url} target="_blank" rel="noopener noreferrer">
+            <img src={item.image} alt={`${item.title} website preview`} width="640" height="360" loading="lazy" />
+            <span class="work-badge">{item.stack === 'wordpress' ? 'WordPress' : 'Astro'}</span>
+          </a>
+          <div class="work-body">
+            <div class="work-heading">
+              <h2 class="work-title">
+                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  {item.title}
+                </a>
+              </h2>
+              {'year' in item && item.year ? <span class="work-year">{item.year}</span> : null}
+            </div>
+            <p class="work-desc">{item.description}</p>
+            {'scores' in item && item.scores ? (
+              <ul class="work-scores" aria-label="Lighthouse-style scores">
+                <li>
+                  <strong>{item.scores.performance}</strong>
+                  <span>perf</span>
+                </li>
+                <li>
+                  <strong>{item.scores.seo}</strong>
+                  <span>seo</span>
+                </li>
+                <li>
+                  <strong>{item.scores.accessibility}</strong>
+                  <span>a11y</span>
+                </li>
+              </ul>
+            ) : null}
+            <a class="work-link" href={item.url} target="_blank" rel="noopener noreferrer">
+              Visit site →
+            </a>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .work-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-bottom: 2rem;
+  }
+
+  .filter {
+    min-height: 2.4rem;
+    padding: 0.45rem 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: color 0.2s var(--ease-out), border-color 0.2s var(--ease-out),
+      background 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+
+  .filter:hover,
+  .filter.is-active {
+    color: var(--neon);
+    border-color: var(--border-strong);
+    background: var(--neon-faint);
+    box-shadow: 0 0 18px var(--neon-faint);
+  }
+
+  .work-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .work-card {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
+  }
+
+  .work-card.is-hidden {
+    display: none;
+  }
+
+  .work-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .work-media {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .work-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.45s var(--ease-out), filter 0.35s var(--ease-out);
+    filter: saturate(0.95);
+  }
+
+  .work-card:hover .work-media img {
+    transform: scale(1.04);
+    filter: saturate(1.05);
+  }
+
+  .work-badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.28rem 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--neon);
+    background: rgba(5, 8, 7, 0.85);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .work-body {
+    padding: 1.15rem 1.15rem 1.25rem;
+    display: grid;
+    gap: 0.65rem;
+    flex: 1;
+  }
+
+  .work-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    align-items: baseline;
+  }
+
+  .work-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .work-title a {
+    color: var(--text);
+  }
+
+  .work-title a:hover {
+    color: var(--neon);
+  }
+
+  .work-year {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+  }
+
+  .work-scores {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .work-scores li {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.28rem;
+    padding: 0.28rem 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--neon-faint);
+  }
+
+  .work-scores strong {
+    font-family: var(--font-display);
+    color: var(--neon);
+    font-size: 0.9rem;
+  }
+
+  .work-scores span {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .work-desc {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .work-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: auto;
+  }
+
+  @media (max-width: 760px) {
+    .work-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const filters = document.querySelectorAll('[data-filter]');
+  const cards = document.querySelectorAll('[data-stack]');
+
+  filters.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const value = btn.getAttribute('data-filter') || 'all';
+      filters.forEach((f) => {
+        f.classList.toggle('is-active', f === btn);
+        f.setAttribute('aria-selected', f === btn ? 'true' : 'false');
+      });
+      cards.forEach((card) => {
+        const stack = card.getAttribute('data-stack');
+        const show = value === 'all' || stack === value;
+        card.classList.toggle('is-hidden', !show);
+      });
+    });
+  });
+</script>

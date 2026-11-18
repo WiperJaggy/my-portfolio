@@ -1,0 +1,293 @@
+---
+import { site } from '../data/site';
+import DeliveryPrism from './DeliveryPrism.astro';
+import SocialIcons from './SocialIcons.astro';
+---
+
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="hero-copy reveal">
+      <p class="hero-status">
+        <span class="ping" aria-hidden="true"></span>
+        Open for front-end roles · Fast, SEO-aware delivery
+      </p>
+
+      <p class="hero-brand">{site.name}</p>
+      <h1 id="hero-title" class="hero-title">
+        Front-end that feels <em>alive</em> — and ranks.
+      </h1>
+      <p class="hero-lead">
+        Front-end developer shipping responsive interfaces with JavaScript, React, Astro, and WordPress — plus Node.js on the backend when the product needs it. Report-driven SEO and CI/CD keep launches fast and on time.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/work">See the work</a>
+        <a class="btn btn-ghost" href={site.resume} download={`Mohammed-Nizar-Miri-Resume.pdf`}>
+          See my resume
+        </a>
+      </div>
+
+      <div class="hero-connect">
+        <SocialIcons />
+        <a
+          class="speed-link"
+          href={`mailto:${site.email}?subject=${encodeURIComponent('Free speed / SEO check')}&body=${encodeURIComponent('Hi Nizar,\n\nPlease audit this URL:\n')}`}
+        >
+          Free speed check →
+        </a>
+      </div>
+
+      <ul class="hero-chips" aria-label="Core strengths">
+        <li>JavaScript</li>
+        <li>React</li>
+        <li>Astro.js</li>
+        <li>WordPress</li>
+        <li>Node.js</li>
+        <li>SEO</li>
+        <li>CI/CD</li>
+      </ul>
+    </div>
+
+    <div class="hero-visual reveal reveal-delay-2">
+      <div class="hero-stage neon-frame">
+        <div class="scan-line" aria-hidden="true"></div>
+        <div class="avatar-slot">
+          <img
+            src="/images/profile.png"
+            alt={`${site.fullName}, ${site.role}`}
+            width="280"
+            height="336"
+            loading="eager"
+            decoding="async"
+          />
+          <div class="avatar-frame" aria-hidden="true"></div>
+        </div>
+        <DeliveryPrism />
+        <p class="prism-caption">
+          <span class="ping"></span>
+          Delivery Prism — signal · facets · speed
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(3.5rem, 8vw, 5.5rem);
+    min-height: calc(100svh - var(--header-h));
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .hero-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 1.25rem;
+    padding: 0.4rem 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--neon);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--neon-faint);
+  }
+
+  .hero-brand {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 7vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+    color: var(--neon);
+    text-shadow: 0 0 40px var(--neon-dim);
+  }
+
+  .hero-title {
+    margin: 0 0 1rem;
+    max-width: 18ch;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.8vw, 1.85rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: var(--text);
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--neon-soft);
+  }
+
+  .hero-lead {
+    margin: 0 0 1.75rem;
+    max-width: 34rem;
+    color: var(--text-muted);
+    font-size: 1.08rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .hero-connect {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.85rem 1.15rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .speed-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-chips li {
+    padding: 0.35rem 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: rgba(5, 8, 7, 0.5);
+  }
+
+  .hero-stage {
+    position: relative;
+    overflow: hidden;
+    padding: 1.5rem 1.25rem 1.25rem;
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+  }
+
+  .scan-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(124, 255, 178, 0.06),
+      transparent
+    );
+    animation: scan 5s linear infinite;
+    pointer-events: none;
+  }
+
+  .avatar-slot {
+    position: relative;
+    width: min(100%, 200px);
+    aspect-ratio: 5 / 6;
+    margin-bottom: 0.25rem;
+    z-index: 1;
+  }
+
+  .avatar-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--border-strong);
+    box-shadow: 0 0 28px var(--neon-faint);
+    filter: saturate(0.92) contrast(1.05);
+  }
+
+  .avatar-frame {
+    position: absolute;
+    inset: -6px;
+    border: 1px solid var(--neon-dim);
+    border-radius: 12px;
+    pointer-events: none;
+  }
+
+  .avatar-frame::before,
+  .avatar-frame::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: var(--neon);
+    border-style: solid;
+  }
+
+  .avatar-frame::before {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+  }
+
+  .avatar-frame::after {
+    bottom: -1px;
+    right: -1px;
+    border-width: 0 2px 2px 0;
+  }
+
+  .prism-caption {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    z-index: 1;
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      min-height: auto;
+      padding-top: 2rem;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-visual {
+      order: -1;
+      max-width: 420px;
+      margin-inline: auto;
+      width: 100%;
+    }
+
+    .hero-brand {
+      font-size: clamp(2.4rem, 12vw, 3.5rem);
+    }
+
+    .hero-title {
+      max-width: none;
+    }
+  }
+</style>

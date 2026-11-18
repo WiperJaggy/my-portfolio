@@ -1,0 +1,159 @@
+---
+import { site } from '../data/site';
+
+const tools = site.toolkit;
+---
+
+<div class="skill-orbit" aria-label="Tools and programming languages">
+  <div class="constellation" style={`--n: ${tools.length}`}>
+    <div class="orbit-core">
+      <span class="core-label">Stack</span>
+      <strong>+2 yrs</strong>
+    </div>
+    {
+      tools.map((tool, i) => (
+        <span
+          class="sat"
+          style={`--i: ${i}; --delay: ${(i % 6) * 0.25}s`}
+          title={tool.name}
+        >
+          {tool.short}
+        </span>
+      ))
+    }
+  </div>
+
+  <ul class="tool-legend">
+    {tools.map((tool) => <li>{tool.name}</li>)}
+  </ul>
+</div>
+
+<style>
+  .skill-orbit {
+    position: relative;
+    width: min(100%, 420px);
+    margin-inline: auto;
+  }
+
+  .constellation {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px dashed var(--neon-dim);
+    background:
+      radial-gradient(circle at center, rgba(124, 255, 178, 0.08), transparent 55%);
+  }
+
+  .constellation::before {
+    content: '';
+    position: absolute;
+    inset: 16%;
+    border-radius: 50%;
+    border: 1px solid rgba(124, 255, 178, 0.16);
+  }
+
+  .orbit-core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 3;
+    width: 6.5rem;
+    height: 6.5rem;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    background: var(--neon);
+    color: #03140c;
+    box-shadow: 0 0 40px var(--neon-glow);
+  }
+
+  .core-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  .orbit-core strong {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+  }
+
+  .sat {
+    --angle: calc((360deg / var(--n)) * var(--i));
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    min-width: 3.15rem;
+    padding: 0.4rem 0.45rem;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-11.5rem) rotate(calc(-1 * var(--angle)));
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+    color: var(--neon-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-panel-strong);
+    box-shadow: 0 0 16px var(--neon-faint);
+    animation: float-sat 4.8s ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes float-sat {
+    0%,
+    100% {
+      filter: brightness(1);
+      box-shadow: 0 0 16px var(--neon-faint);
+    }
+    50% {
+      filter: brightness(1.15);
+      box-shadow: 0 0 22px var(--neon-dim);
+    }
+  }
+
+  .tool-legend {
+    list-style: none;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .tool-legend li {
+    padding: 0.28rem 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    border: 1px solid rgba(124, 255, 178, 0.12);
+    border-radius: var(--radius);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sat {
+      animation: none !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .orbit-core {
+      width: 5.2rem;
+      height: 5.2rem;
+    }
+
+    .sat {
+      min-width: 2.7rem;
+      font-size: 0.6rem;
+      transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-8.6rem)
+        rotate(calc(-1 * var(--angle)));
+    }
+  }
+</style>

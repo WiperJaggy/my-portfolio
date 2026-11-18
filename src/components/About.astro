@@ -1,0 +1,151 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="section about" id="about" aria-labelledby="about-title">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-intro reveal">
+        <p class="section-label">About</p>
+        <h2 class="section-title" id="about-title">Built for speed, search, and clarity.</h2>
+        <p class="section-lead">{site.about.lead}</p>
+        <p class="about-more">
+          <a href="/about">Read the full story →</a>
+        </p>
+      </div>
+
+      <div class="about-body neon-frame reveal reveal-delay-1">
+        <p>{site.about.body}</p>
+        <ul class="about-points">
+          <li>
+            <strong>Front-end craft</strong>
+            <span>2 years shipping responsive interfaces with strong JavaScript practice.</span>
+          </li>
+          <li>
+            <strong>SEO maintenance</strong>
+            <span>WordPress &amp; Astro.js sites kept healthy, fast, and discoverable.</span>
+          </li>
+          <li>
+            <strong>Reliable delivery</strong>
+            <span>CI/CD on GitHub &amp; GitLab so launches stay repeatable.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <ul class="highlights reveal reveal-delay-2" aria-label="Quick facts">
+      {
+        site.highlights.map((item) => (
+          <li class="neon-frame highlight">
+            <span class="highlight-value">{item.value}</span>
+            <span class="highlight-label">{item.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .about-more {
+    margin: 1rem 0 0;
+  }
+
+  .about-more a {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .about-body {
+    padding: 1.5rem 1.4rem;
+  }
+
+  .about-body p {
+    margin: 0 0 1.25rem;
+    color: var(--text-muted);
+  }
+
+  .about-points {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .about-points li {
+    display: grid;
+    gap: 0.25rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--neon-dim);
+  }
+
+  .about-points strong {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+
+  .about-points span {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .highlights {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.85rem;
+  }
+
+  .highlight {
+    padding: 1.1rem 1rem;
+    text-align: left;
+  }
+
+  .highlight-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+    font-weight: 700;
+    color: var(--neon);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+
+  .highlight-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .highlights {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .highlights {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

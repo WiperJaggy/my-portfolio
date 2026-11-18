@@ -1,0 +1,193 @@
+---
+
+---
+
+<section class="section speed" id="speed" aria-labelledby="speed-title">
+  <div class="container">
+    <div class="speed-head reveal">
+      <p class="section-label">Why speed matters</p>
+      <h2 class="section-title" id="speed-title">Same visitor. Different wait.</h2>
+      <p class="section-lead">
+        A heavy WordPress experience can leave people staring at a blank page. Astro-first builds get usable much sooner — and employers notice sites that feel this fast.
+      </p>
+    </div>
+
+    <div class="speed-board neon-frame reveal reveal-delay-1" data-speed-demo>
+      <div class="lanes">
+        <article class="lane" data-lane="wp">
+          <header>
+            <h3>Typical heavy WordPress</h3>
+            <span class="time" data-time>~7.4s</span>
+          </header>
+          <div class="bar-track">
+            <span class="bar bar-wp" data-bar></span>
+          </div>
+          <p class="lane-note">Visitor waits while scripts, plugins, and assets catch up.</p>
+        </article>
+
+        <article class="lane" data-lane="astro">
+          <header>
+            <h3>Astro-first build</h3>
+            <span class="time time-win" data-time>~0.9s</span>
+          </header>
+          <div class="bar-track">
+            <span class="bar bar-astro" data-bar></span>
+          </div>
+          <p class="lane-note">Visitor can already read content and tap a CTA.</p>
+        </article>
+      </div>
+
+      <div class="speed-footer">
+        <p class="delta" data-delta>+6.5s slower — long enough for many visitors to leave.</p>
+        <button class="btn btn-ghost" type="button" data-replay>Replay</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .speed-head {
+    margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .speed-board {
+    padding: 1.35rem 1.2rem 1.25rem;
+  }
+
+  .lanes {
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  .lane header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .lane h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+  }
+
+  .time {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .time-win {
+    color: var(--neon);
+  }
+
+  .bar-track {
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(124, 255, 178, 0.08);
+    border: 1px solid var(--neon-faint);
+    overflow: hidden;
+  }
+
+  .bar {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+  }
+
+  .bar-wp {
+    background: linear-gradient(90deg, #ff8f6b, #ff6b6b);
+  }
+
+  .bar-astro {
+    background: linear-gradient(90deg, rgba(124, 255, 178, 0.45), var(--neon));
+    box-shadow: 0 0 14px var(--neon-glow);
+  }
+
+  .lane-note {
+    margin: 0.55rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .speed-footer {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+  }
+
+  .delta {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--neon-soft);
+  }
+
+  .is-running .bar-wp {
+    animation: fill-wp 2.4s var(--ease-out) forwards;
+  }
+
+  .is-running .bar-astro {
+    animation: fill-astro 0.55s var(--ease-out) 0.15s forwards;
+  }
+
+  @keyframes fill-wp {
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes fill-astro {
+    to {
+      width: 14%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar-wp {
+      width: 100%;
+    }
+    .bar-astro {
+      width: 14%;
+    }
+    .is-running .bar-wp,
+    .is-running .bar-astro {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const demo = document.querySelector('[data-speed-demo]');
+  const replay = document.querySelector('[data-replay]');
+
+  const run = () => {
+    if (!demo) return;
+    demo.classList.remove('is-running');
+    // force reflow so animation restarts
+    void (demo as HTMLElement).offsetWidth;
+    demo.classList.add('is-running');
+  };
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          run();
+          io.disconnect();
+        }
+      });
+    },
+    { threshold: 0.35 }
+  );
+
+  if (demo) io.observe(demo);
+  replay?.addEventListener('click', run);
+</script>

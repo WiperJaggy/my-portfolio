@@ -1,0 +1,52 @@
+---
+import { site } from '../data/site';
+
+const auditSubject = encodeURIComponent('Free speed / SEO check');
+const auditBody = encodeURIComponent(
+  'Hi Nizar,\n\nPlease audit this URL:\n\nThanks.'
+);
+---
+
+<section class="section contact-cta" id="contact" aria-labelledby="contact-cta-title">
+  <div class="container cta-panel neon-frame reveal">
+    <div class="cta-copy">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title" id="contact-cta-title">Let’s build something together.</h2>
+      <p class="section-lead">
+        Hiring for front-end, WordPress, Astro, or SEO maintenance? Send a brief — or a URL for a free speed/SEO check.
+      </p>
+    </div>
+    <div class="cta-actions">
+      <a class="btn btn-primary" href="/contact">Open contact form</a>
+      <a class="btn btn-ghost" href={`mailto:${site.email}?subject=${auditSubject}&body=${auditBody}`}>
+        Free speed check
+      </a>
+      <a class="btn btn-ghost" href={`mailto:${site.email}`}>Email {site.email}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-panel {
+    padding: clamp(1.5rem, 4vw, 2.25rem);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .cta-copy {
+    max-width: 40rem;
+  }
+
+  .cta-copy .section-title {
+    margin-bottom: 0.55rem;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>

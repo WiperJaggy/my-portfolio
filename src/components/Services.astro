@@ -1,0 +1,79 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="section services" id="services" aria-labelledby="services-title">
+  <div class="container">
+    <div class="services-head reveal">
+      <p class="section-label">What I build</p>
+      <h2 class="section-title" id="services-title">Capabilities employers can hire for.</h2>
+      <p class="section-lead">
+        Front-end delivery across Astro and WordPress, backed by SEO maintenance and reliable CI/CD.
+      </p>
+    </div>
+
+    <ul class="services-grid">
+      {
+        site.services.map((service, i) => (
+          <li class={`neon-frame service-card reveal reveal-delay-${(i % 3) + 1}`}>
+            <span class="service-index" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .services-head {
+    margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .services-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+
+  .service-card {
+    padding: 1.25rem 1.15rem 1.3rem;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .service-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .service-index {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--neon);
+  }
+
+  .service-card h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .service-card p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 720px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
